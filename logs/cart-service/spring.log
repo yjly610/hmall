@@ -373,3 +373,38 @@
 17:37:58:645  INFO 20948 --- [SpringApplicationShutdownHook] c.a.n.c.remote.client.grpc.GrpcClient    : Shutdown grpc executor java.util.concurrent.ThreadPoolExecutor@2ca5bc9f[Running, pool size = 5, active threads = 0, queued tasks = 0, completed tasks = 862]
 17:37:58:649  INFO 20948 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 17:37:58:664  INFO 20948 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+19:35:44:223  INFO 19300 --- [main] com.hmall.cart.CartApplication           : The following 1 profile is active: "dev"
+19:35:44:931  INFO 19300 --- [main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=0addc59b-9973-3469-ab5e-a7dcd3cea12f
+19:35:45:207  INFO 19300 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8082 (http)
+19:35:45:214  INFO 19300 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+19:35:45:214  INFO 19300 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.75]
+19:35:45:301  INFO 19300 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+19:35:45:302  INFO 19300 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1065 ms
+19:35:46:547  INFO 19300 --- [main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+19:35:47:734  INFO 19300 --- [main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+19:35:47:866  INFO 19300 --- [main] o.s.c.openfeign.FeignClientFactoryBean   : For 'item-service' URL not provided. Will try picking an instance via load-balancing.
+19:35:49:312  INFO 19300 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2ControllerWebMvc#getDocumentation(String, HttpServletRequest)]
+19:35:49:506  INFO 19300 --- [main] com.alibaba.nacos.common.remote.client   : [RpcClientFactory] create a new rpc client of 42f761e9-53e0-483c-abb3-a218e4edb3ac
+19:35:49:507  INFO 19300 --- [main] com.alibaba.nacos.common.remote.client   : [42f761e9-53e0-483c-abb3-a218e4edb3ac] RpcClient init label, labels = {module=naming, source=sdk}
+19:35:49:509  INFO 19300 --- [main] com.alibaba.nacos.common.remote.client   : [42f761e9-53e0-483c-abb3-a218e4edb3ac] RpcClient init, ServerListFactory = com.alibaba.nacos.client.naming.core.ServerListManager
+19:35:49:509  INFO 19300 --- [main] com.alibaba.nacos.common.remote.client   : [42f761e9-53e0-483c-abb3-a218e4edb3ac] Registry connection listener to current client:com.alibaba.nacos.client.naming.remote.gprc.redo.NamingGrpcRedoService
+19:35:49:510  INFO 19300 --- [main] com.alibaba.nacos.common.remote.client   : [42f761e9-53e0-483c-abb3-a218e4edb3ac] Register server push request handler:com.alibaba.nacos.client.naming.remote.gprc.NamingPushRequestHandler
+19:35:49:510  INFO 19300 --- [main] com.alibaba.nacos.common.remote.client   : [42f761e9-53e0-483c-abb3-a218e4edb3ac] Try to connect to server on start up, server: {serverIp = '192.168.200.146', server main port = 8848}
+19:35:49:632  INFO 19300 --- [main] com.alibaba.nacos.common.remote.client   : [42f761e9-53e0-483c-abb3-a218e4edb3ac] Success to connect to server [192.168.200.146:8848] on start up, connectionId = 1700825748199_192.168.200.1_4316
+19:35:49:632  INFO 19300 --- [main] com.alibaba.nacos.common.remote.client   : [42f761e9-53e0-483c-abb3-a218e4edb3ac] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$ConnectResetRequestHandler
+19:35:49:632  INFO 19300 --- [main] com.alibaba.nacos.common.remote.client   : [42f761e9-53e0-483c-abb3-a218e4edb3ac] Register server push request handler:com.alibaba.nacos.common.remote.client.RpcClient$$Lambda$473/0x000000080041bc40
+19:35:49:632  INFO 19300 --- [com.alibaba.nacos.client.remote.worker] com.alibaba.nacos.common.remote.client   : [42f761e9-53e0-483c-abb3-a218e4edb3ac] Notify connected event to listeners.
+19:35:49:733  INFO 19300 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8082 (http) with context path ''
+19:35:50:219  INFO 19300 --- [nacos-grpc-client-executor-5] com.alibaba.nacos.common.remote.client   : [42f761e9-53e0-483c-abb3-a218e4edb3ac] Receive server push request, request = NotifySubscriberRequest, requestId = 87
+19:35:50:228  INFO 19300 --- [nacos-grpc-client-executor-5] com.alibaba.nacos.common.remote.client   : [42f761e9-53e0-483c-abb3-a218e4edb3ac] Ack server push request, request = NotifySubscriberRequest, requestId = 87
+19:35:50:943  INFO 19300 --- [main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+19:35:50:964  INFO 19300 --- [main] c.a.c.n.registry.NacosServiceRegistry    : nacos registry, DEFAULT_GROUP cart-service 192.168.200.1:8082 register finished
+19:35:50:965  INFO 19300 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Documentation plugins bootstrapped
+19:35:50:968  INFO 19300 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+19:35:50:996  INFO 19300 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+19:35:51:009  INFO 19300 --- [main] com.hmall.cart.CartApplication           : Started CartApplication in 11.206 seconds (JVM running for 12.115)
+19:35:51:017  INFO 19300 --- [main] c.a.c.n.refresh.NacosContextRefresher    : [Nacos Config] Listening config: dataId=cart-service, group=DEFAULT_GROUP
+19:35:51:017  INFO 19300 --- [main] c.a.c.n.refresh.NacosContextRefresher    : [Nacos Config] Listening config: dataId=cart-service.yaml, group=DEFAULT_GROUP
+19:35:51:017  INFO 19300 --- [main] c.a.c.n.refresh.NacosContextRefresher    : [Nacos Config] Listening config: dataId=cart-service-dev.yaml, group=DEFAULT_GROUP
+19:35:51:511  INFO 19300 --- [nacos-grpc-client-executor-8] com.alibaba.nacos.common.remote.client   : [42f761e9-53e0-483c-abb3-a218e4edb3ac] Receive server push request, request = NotifySubscriberRequest, requestId = 88
+19:35:51:519  INFO 19300 --- [nacos-grpc-client-executor-8] com.alibaba.nacos.common.remote.client   : [42f761e9-53e0-483c-abb3-a218e4edb3ac] Ack server push request, request = NotifySubscriberRequest, requestId = 88
