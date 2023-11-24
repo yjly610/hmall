@@ -1,4 +1,10 @@
 hm:
   db:
-    host: 192.168.200.146
+    port: 3306
     pw: heima123
+    host: 192.168.200.146
+    database: hm-cart
+    un: root
+  swagger:
+    title: 购物车接口文档
+    package: com.hmall.cart.controller

@@ -1,4 +1,4 @@
-package com.hmall.user.utils;
+package com.hmall.gateway.utils;
 
 import cn.hutool.core.exceptions.ValidateException;
 import cn.hutool.jwt.JWT;
@@ -14,6 +14,7 @@ import java.util.Date;
 
 @Component
 public class JwtTool {
+
     private final JWTSigner jwtSigner;
 
     public JwtTool(KeyPair keyPair) {
@@ -22,8 +23,6 @@ public class JwtTool {
 
     /**
      * 创建 access-token
-     *
-     * @param userDTO 用户信息
      * @return access-token
      */
     public String createToken(Long userId, Duration ttl) {

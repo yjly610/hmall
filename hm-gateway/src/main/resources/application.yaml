@@ -1,0 +1,53 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: hm-gateway
+  cloud:
+    nacos:
+      server-addr: 192.168.200.146:8848
+    gateway:
+      default-filters:
+        - AddRequestHeader=testadd,this is a test
+        - PrintAny=12,23,34
+      routes:
+        - id: item       #唯一标识
+          uri: lb://item-service #符合断言转发地址 lb：负载均衡
+          predicates:  #断言
+            - Path=/items/**,/search/**  #断言路径
+        - id: cart
+          uri: lb://cart-service
+          predicates:
+            - Path=/carts/**
+        - id: user
+          uri: lb://user-service
+          predicates:
+            - Path=/users/**,/addresses/**
+        - id: trade
+          uri: lb://trade-service
+          predicates:
+            - Path=/orders/**
+        - id: pay
+          uri: lb://pay-service
+          predicates:
+            - Path=/pay-orders/**
+
+logging:
+  level:
+    com.hmall: debug
+  pattern:
+    dateformat: HH:mm:ss:SSS
+  file:
+    path: "logs/${spring.application.name}"
+
+hm:
+  jwt:
+    location: classpath:hmall.jks # 秘钥地址
+    alias: hmall # 秘钥别名
+    password: hmall123 # 秘钥文件密码
+    tokenTTL: 30m # 登录有效期
+  auth:
+    excludePaths: # 无需登录校验的路径
+      - /search/**
+      - /users/login
+      - /items/**

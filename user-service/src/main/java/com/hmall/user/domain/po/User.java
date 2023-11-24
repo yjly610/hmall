@@ -1,4 +1,3 @@
-
 package com.hmall.user.domain.po;
 
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -12,7 +11,6 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-
 /**
  * <p>
  * 用户表
@@ -21,7 +19,6 @@ import java.time.LocalDateTime;
  * @author 虎哥
  * @since 2023-05-05
  */
-
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
@@ -32,7 +29,6 @@ public class User implements Serializable {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
-
 
     /**
      * 用户名
@@ -68,4 +64,3 @@ public class User implements Serializable {
 
 
 }
-

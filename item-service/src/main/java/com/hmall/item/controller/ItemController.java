@@ -26,7 +26,8 @@ public class ItemController {
 
     @ApiOperation("分页查询商品")
     @GetMapping("/page")
-    public PageDTO<ItemDTO> queryItemByPage(PageQuery query) {
+    public PageDTO<ItemDTO> queryItemByPage(PageQuery query,@RequestHeader(value = "testadd",required = false)String testadd) {
+        System.out.println("测试网关过滤器，添加header: "+testadd);
         // 1.分页查询
         Page<Item> result = itemService.page(query.toMpPage("update_time", false));
         // 2.封装并返回

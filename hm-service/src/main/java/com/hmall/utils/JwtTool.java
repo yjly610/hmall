@@ -14,7 +14,6 @@ import java.util.Date;
 
 @Component
 public class JwtTool {
-
     private final JWTSigner jwtSigner;
 
     public JwtTool(KeyPair keyPair) {
