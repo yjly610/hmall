@@ -6,5 +6,7 @@
     <file url="file://E:/ZZHM126/项目二前置课微服务框架/day03-微服务01/资料/hm-user.sql" dialect="MySQL" />
     <file url="file://E:/ZZHM126/项目二前置课微服务框架/day03-微服务01/资料/mysql/init/hmall.sql" dialect="MySQL" />
     <file url="file://E:/ZZHM126/项目二前置课微服务框架/day03-微服务01/资料/nacos.sql" dialect="MySQL" />
+    <file url="file://E:/ZZHM126/项目二前置课微服务框架/day05-服务保护和分布式事务/资料/seata-at.sql" dialect="MySQL" />
+    <file url="file://E:/ZZHM126/项目二前置课微服务框架/day05-服务保护和分布式事务/资料/seata-tc.sql" dialect="MySQL" />
   </component>
 </project>

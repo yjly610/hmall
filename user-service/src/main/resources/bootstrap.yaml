@@ -1,0 +1,20 @@
+server:
+  port: 8084
+spring:
+  application:
+    name: user-service
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      server-addr: 192.168.200.146:8848
+      config:
+        file-extension: yaml
+        shared-configs:
+          - dataId: shared-jdbc.yaml
+          - dataId: shared-log.yaml
+          - dataId: shared-swagger.yaml
+          - dataId: shared-feign.yaml
+          - dataId: shared-auth.yaml
+          - dataId: shared-seata.yaml
+

@@ -2,3 +2,9 @@ hm:
   db:
     host: 192.168.200.146
     pw: heima123
+    port: 3306
+    un: root
+    database: hm-trade
+  swagger:
+    title: 订单相关接口
+    package: com.hmall.trade.controller

@@ -16,5 +16,14 @@ spring:
           - dataId: shared-swagger.yaml
           - dataId: shared-feign.yaml
           - dataId: shared-auth.yaml
-
-
+          - dataId: shared-seata.yaml
+    sentinel:
+      transport:
+        #配置sentinel控制中心地址
+        dashboard: localhost:8090
+        #配置是否开启HTTP方法级别的精确配置  （GET、POST、DELETE、PUT...）
+      http-method-specify: true
+#开启远程调用其他服务检测配置规则
+feign:
+  sentinel:
+    enabled: true

@@ -2,3 +2,9 @@ hm:
   db:
     host: 192.168.200.146
     pw: heima123
+    port: 3306
+    un: root
+    database: hm-item
+  swagger:
+    title: 商品接口文档
+    package: com.hmall.item.controller

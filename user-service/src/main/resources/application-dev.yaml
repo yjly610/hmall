@@ -2,3 +2,8 @@ hm:
   db:
     host: 192.168.200.146
     pw: heima123
+    port: 3306
+    database: hm-user
+  swagger:
+    title: 用户相关接口
+    package: com.hmall.user.controller

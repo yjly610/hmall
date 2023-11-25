@@ -39,7 +39,6 @@ logging:
     dateformat: HH:mm:ss:SSS
   file:
     path: "logs/${spring.application.name}"
-
 hm:
   jwt:
     location: classpath:hmall.jks # 秘钥地址
