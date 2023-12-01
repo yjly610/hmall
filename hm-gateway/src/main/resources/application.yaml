@@ -14,7 +14,11 @@ spring:
         - id: item       #唯一标识
           uri: lb://item-service #符合断言转发地址 lb：负载均衡
           predicates:  #断言
-            - Path=/items/**,/search/**  #断言路径
+            - Path=/items/** #断言路径
+        - id: search
+          uri: lb://search-service
+          predicates:
+            - Path=/search/**
         - id: cart
           uri: lb://cart-service
           predicates:

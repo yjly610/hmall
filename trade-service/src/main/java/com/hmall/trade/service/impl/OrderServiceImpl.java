@@ -7,6 +7,8 @@ import com.hmall.api.dto.ItemDTO;
 import com.hmall.api.dto.OrderDetailDTO;
 import com.hmall.common.exception.BadRequestException;
 import com.hmall.common.utils.UserContext;
+import com.hmall.trade.constants.MqConstants;
+import com.hmall.trade.domain.dto.MultiDelayMessage;
 import com.hmall.trade.domain.dto.OrderFormDTO;
 import com.hmall.trade.domain.po.Order;
 import com.hmall.trade.domain.po.OrderDetail;
@@ -15,14 +17,15 @@ import com.hmall.trade.service.IOrderDetailService;
 import com.hmall.trade.service.IOrderService;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.core.Message;
+import org.springframework.amqp.core.MessagePostProcessor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -40,6 +43,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     private final ItemClient itemClient;
     private final IOrderDetailService detailService;
     private final CartClient cartClient;
+    private final RabbitTemplate rabbitTemplate;
 
     @Override
     //@Transactional
@@ -76,7 +80,16 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         detailService.saveBatch(details);
 
         // 3.清理购物车商品
-        cartClient.deleteCartItemByIds(itemIds);
+        //cartClient.deleteCartItemByIds(itemIds);
+        //改为使用RabbitMQ异步通知控制删除购物车数据
+        String exchangeName = "trade.topic";
+        String key = "trade.success";
+        //准备数据
+        Map<String,Object> map = new HashMap<>();
+        Long userId = UserContext.getUser();
+        map.put("userId",userId);
+        map.put("itemIds",itemIds);
+        rabbitTemplate.convertAndSend(exchangeName,key,map);
 
         // 4.扣减库存
         try {
@@ -84,16 +97,50 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         } catch (Exception e) {
             throw new RuntimeException("库存不足！");
         }
+
+        //5.发送MQ消息检测订单支付状态
+        try {
+            MultiDelayMessage<Long> oldMessage = MultiDelayMessage.of(order.getId(),10000L,10000L,10000L,30000L);
+            Long time = oldMessage.removeNextDelay();
+            log.error(oldMessage+"");
+            rabbitTemplate.convertAndSend(MqConstants.DELAY_EXCHANGE, MqConstants.DELAY_ORDER_ROUTING_KEY, oldMessage, new MessagePostProcessor() {
+                @Override
+                public Message postProcessMessage(Message message) throws AmqpException {
+                    message.getMessageProperties().setDelay(time.intValue());
+                    return message;
+                }
+            });
+        } catch (AmqpException e) {
+            e.printStackTrace();
+        }
+
+
         return order.getId();
     }
 
+    /**
+     * 如果消息存在重试，可能会存在业务逻辑问题 ：
+     * 如；第一次修改改为2之后，客户申请了急速退款，可能会退款后，又修改为已付款问题
+     * 处理方式：
+     * 1加锁
+     * 2sql语句控制
+     * @param orderId
+     */
     @Override
     public void markOrderPaySuccess(Long orderId) {
-        Order order = new Order();
-        order.setId(orderId);
-        order.setStatus(2);
-        order.setPayTime(LocalDateTime.now());
-        updateById(order);
+        this.lambdaUpdate()
+                .set(Order::getStatus,2)
+                .set(Order::getUpdateTime,LocalDateTime.now())
+                .eq(Order::getId,orderId)
+                .eq(Order::getStatus,1)
+                .update();
+//        Order order = new Order();
+//        order.setId(orderId);
+//        //订单的状态，1、未付款 2、已付款,未发货 3、已发货,未确认 4、确认收货，交易成功
+//        // 5、交易取消，订单关闭 6、交易结束，已评价
+//        order.setStatus(2);
+//        order.setPayTime(LocalDateTime.now());
+//        updateById(order);
     }
 
     private List<OrderDetail> buildDetails(Long orderId, List<ItemDTO> items, Map<Long, Integer> numMap) {

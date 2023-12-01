@@ -1,8 +1,11 @@
 package com.hmall.pay.controller;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.hmall.common.exception.BizIllegalException;
 import com.hmall.pay.domain.dto.PayApplyDTO;
+import com.hmall.pay.domain.dto.PayOrderDTO;
 import com.hmall.pay.domain.dto.PayOrderFormDTO;
+import com.hmall.pay.domain.po.PayOrder;
 import com.hmall.pay.enums.PayType;
 import com.hmall.pay.service.IPayOrderService;
 import io.swagger.annotations.Api;
@@ -35,5 +38,13 @@ public class PayController {
     public void tryPayOrderByBalance(@PathVariable("id") Long id, @RequestBody PayOrderFormDTO payOrderFormDTO){
         payOrderFormDTO.setId(id);
         payOrderService.tryPayOrderByBalance(payOrderFormDTO);
+    }
+
+
+    @GetMapping("/biz/{id}")
+    public PayOrderDTO tqueryPayOrderByBizOrderNo(@PathVariable("id") Long orderId){
+        PayOrder payOrder = payOrderService.lambdaQuery()
+                .eq(PayOrder::getBizOrderNo, orderId).one();
+        return BeanUtil.toBean(payOrder,PayOrderDTO.class);
     }
 }

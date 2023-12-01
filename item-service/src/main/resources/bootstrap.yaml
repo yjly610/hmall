@@ -17,4 +17,5 @@ spring:
           - dataId: shared-feign.yaml
           - dataId: shared-auth.yaml
           - dataId: shared-seata.yaml
+          - dataId: shared-mq.yaml
 

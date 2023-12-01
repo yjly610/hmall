@@ -25,6 +25,16 @@ public class ItemClientFallbackFactory implements FallbackFactory<ItemClient> {
                 log.error("查询失败",throwable);
                 throw new RuntimeException("库存扣减失败");
             }
+
+            /**
+             * 根据id查询商品
+             * @param id
+             * @return
+             */
+            @Override
+            public ItemDTO queryItemById(Long id) {
+                return null;
+            }
         };
     }
 }
